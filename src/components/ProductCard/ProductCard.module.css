@@ -1,0 +1,27 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  width: clamp(200px, 25vw, 300px);
+}
+
+.product-card img {
+  width: 100%;
+}
+
+.image {
+  background-color: aliceblue;
+  flex: 5;
+}
+
+.roastery {
+ font-size: 0.75rem; 
+}
+
+.name {
+  font-size: 1rem;
+}
+
+.price {
+  font-size: 1.125rem;
+}
+
