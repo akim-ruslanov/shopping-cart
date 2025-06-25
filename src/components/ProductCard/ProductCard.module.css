@@ -1,7 +1,7 @@
 .product-card {
   display: flex;
   flex-direction: column;
-  width: clamp(200px, 25vw, 300px);
+  flex: 1 auto;
 }
 
 .product-card img {

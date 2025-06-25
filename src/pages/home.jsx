@@ -1,7 +1,9 @@
+import { useOutletContext } from "react-router-dom";
 import Filter from "../components/Filter";
 import NavBar from "../components/NavBar";
-import ProductCard from "../components/ProductCard/ProductCard";
 import ProductGrid from "../components/ProductGrid/ProductGrid";
+import { useEffect, useState } from "react";
+import "./home.css";
 
 const coffeeProducts = [
     {
@@ -79,21 +81,43 @@ const coffeeProducts = [
 ];
 
 export default function Home() {
+    const { addToCart } = useOutletContext();
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState();
+
+    useEffect(() => {
+        fetch("https://fakestoreapi.com/products")
+            .then((response) => response.json())
+            .then((data) => {
+                setTimeout(() => {setProducts(data); setLoading(false)}, 50000)
+                
+                console.log(data);
+            })
+            .catch((error) => {
+                setError(error);
+            })
+            .finally(() => {
+                // setLoading(false);
+            });
+    }, []);
     return (
-        <div>
-            <div className="img-carousel">
-                {/* <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" /> */}
-            </div>
-            <section className="featured-items">
-                <h1>Featured Items</h1>
-                <div className="featured-items-grid">
-                    <ProductGrid products={coffeeProducts}></ProductGrid>
-                </div>
-            </section>
+        <div className="home">
+            {loading ? (
+                <div className="loader"> </div>
+            ) : error ? (
+                <div>Cannot fetch data</div>
+            ) : (
+                <section className="featured-items">
+                    <h1>Featured Items</h1>
+                    <div className="featured-items-grid">
+                        <ProductGrid
+                            products={products}
+                            addToCart={addToCart}
+                        ></ProductGrid>
+                    </div>
+                </section>
+            )}
         </div>
     );
 }

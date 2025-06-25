@@ -1,6 +1,6 @@
 import styles from "./ProductCard.module.css";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, addToCart }) {
     return (
         <div className={styles["product-card"]}>
             <div className="image">
@@ -11,8 +11,8 @@ export default function ProductCard({ product }) {
             </div>
             <div className={styles.roastery}>{product.roastery}</div>
             <div className={styles.name}>{product.name}</div>
-            {/* <div className="description">{product.description}</div> */}
             <div className={styles.price}>${product.price} CAD</div>
+            <button onClick={() => addToCart(product)}>Add to cart</button>
         </div>
     );
 }
